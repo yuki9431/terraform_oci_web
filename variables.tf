@@ -7,7 +7,7 @@ variable "region" {
 
 # general oci parameters
 
-variable "compartment_id" {
+variable "default_compartment_id" {
   type        = string
   description = "compartment id where to create all resources"
 }
