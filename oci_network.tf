@@ -1,4 +1,3 @@
-# oci_network
 locals {
   next_hop_ids = {
     "igw"   = module.oci_network.igw.id

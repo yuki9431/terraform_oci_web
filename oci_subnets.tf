@@ -1,4 +1,3 @@
-# subnets
 locals {
   vcn_cidr          = module.oci_network.vcn.cidr_block  # = "192.168.0.0/16"
   public_cidr       = cidrsubnet(local.vcn_cidr, 8, 100) # = "192.168.100.0/24"
