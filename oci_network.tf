@@ -24,7 +24,7 @@ module "oci_network" {
   create_natgw = true
 
   route_tables = {
-    private_systems = {
+    rt_private = {
       compartment_id = null
       defined_tags   = null
       freeform_tags  = null
@@ -36,7 +36,7 @@ module "oci_network" {
         }
       ]
     },
-    public_systems = {
+    rt_public = {
       compartment_id = null
       defined_tags   = null
       freeform_tags  = null

@@ -15,7 +15,7 @@ module "subnets" {
   vcn_cidr               = local.vcn_cidr
 
   subnets = {
-    public_subnet = {
+    subnet_public = {
       compartment_id    = null
       defined_tags      = null
       freeform_tags     = null
@@ -28,11 +28,11 @@ module "subnets" {
       private           = false
       ad                = null
       dhcp_options_id   = local.dhcp_options_id
-      route_table_id    = module.oci_network.route_tables.public_systems.id
+      route_table_id    = module.oci_network.route_tables.rt_public.id
       security_list_ids = local.security_list_ids
     }
 
-    private_subnet = {
+    subnet_private = {
       compartment_id    = null
       defined_tags      = null
       freeform_tags     = null
@@ -45,7 +45,7 @@ module "subnets" {
       private           = true
       ad                = null
       dhcp_options_id   = local.dhcp_options_id
-      route_table_id    = module.oci_network.route_tables.private_systems.id
+      route_table_id    = module.oci_network.route_tables.rt_private.id
       security_list_ids = local.security_list_ids
     }
   }
