@@ -1,4 +1,3 @@
-# general parameter
 locals {
   protocols = {
     ALL    = "all"
