@@ -7,7 +7,7 @@ locals {
   security_list_ids = [module.oci_network.vcn.default_security_list_id]
 }
 
-module "subnets" {
+module "oci_subnets" {
   source = "git@github.com:oracle-terraform-modules/terraform-oci-tdf-subnet.git"
 
   default_compartment_id = var.default_compartment_id
