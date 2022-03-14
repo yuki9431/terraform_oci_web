@@ -1,0 +1,7 @@
+# general oci parameters
+region                 = "ap-tokyo-1"
+default_compartment_id = "ocid1.compartment.oc1..aaaa......bbbbbbb"
+tenancy_ocid           = "ocid1.tenancy.oc1..aaaa......bbbbbbb"
+user_ocid              = "ocid1.user.oc1..aaaaaaaa......bbbbbb"
+fingerprint            = "00:00:aa:bb:cc:00:11:aa:aa:aa:dd:44:00:aa:00:cc"
+private_key_path       = "./oci.pem"
