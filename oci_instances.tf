@@ -1,14 +1,10 @@
-locals {
-  create_compute = true
-}
-
 module "oci_instances" {
-  source = "git@github.com:oracle-terraform-modules/terraform-oci-tdf-compute-instance.git"
+  source = "git@github.com:yuki9431/terraform-oci-tdf-compute-instance.git"
 
   default_compartment_id = var.default_compartment_id
 
-  instances = local.create_compute ? {
-    web01 = {
+  instances = {
+    instance_web01 = {
       ad             = null #0-AD1, 1-AD2, 3-AD3 RequiredRequired
       compartment_id = var.default_compartment_id
       shape          = "VM.Standard.E2.1.Micro"
@@ -22,7 +18,7 @@ module "oci_instances" {
       vnic_display_name   = null
       vnic_freeform_tags  = null
       nsg_ids             = [module.oci_nsgs.nsgs.nsg_web.id]
-      private_ip          = null
+      private_ip          = cidrhost(module.oci_subnets.subnets.subnet_private.cidr_block, 10)
       skip_src_dest_check = null
 
       defined_tags          = null
@@ -33,8 +29,8 @@ module "oci_instances" {
       ipxe_script           = null
       pv_encr_trans_enabled = null
 
-      ssh_authorized_keys = ["./keys/ssh.key.pub"]  #ex: ["/path/public-key.pub"]
-      ssh_private_keys    = ["./keys/ssh.key"] #ex: ["/path/private-key"]
+      ssh_authorized_keys = ["./keys/ssh.key.pub"] #ex: ["/path/public-key.pub"]
+      ssh_private_keys    = ["./keys/ssh.key"]     #ex: ["/path/private-key"]
       bastion_ip          = null
       user_data           = null #base64encode(file("bootstrap.sh"))
 
@@ -56,6 +52,11 @@ module "oci_instances" {
       cons_conn_create     = null
       cons_conn_def_tags   = null
       cons_conn_free_tags  = null
+
+      plugins_config = {
+        bastion = "ENABLED"
+      }
+
     }
-  } : null
+  }
 }
