@@ -1,5 +1,5 @@
 module "load_balancer" {
-  source = "git@github.com:oracle-terraform-modules/terraform-oci-tdf-lb.git"
+  source = "https://github.com/oracle-terraform-modules/terraform-oci-tdf-lb.git"
 
   default_compartment_id = var.default_compartment_id
 
