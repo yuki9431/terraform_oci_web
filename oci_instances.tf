@@ -1,5 +1,5 @@
 module "oci_instances" {
-  source = "https://github.com/yuki9431/terraform-oci-tdf-compute-instance.git"
+  source = "github.com/yuki9431/terraform-oci-tdf-compute-instance"
 
   default_compartment_id = var.default_compartment_id
 

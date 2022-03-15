@@ -6,7 +6,7 @@ locals {
 }
 
 module "oci_network" {
-  source                 = "https://github.com/oracle-terraform-modules/terraform-oci-tdf-network.git"
+  source                 = "github.com/oracle-terraform-modules/terraform-oci-tdf-network"
   default_compartment_id = var.default_compartment_id
 
   vcn_options = {

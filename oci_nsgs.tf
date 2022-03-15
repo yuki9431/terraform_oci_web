@@ -28,7 +28,7 @@ locals {
 #
 
 module "oci_nsgs" {
-  source = "https://github.com/oracle-terraform-modules/terraform-oci-tdf-network-security.git"
+  source = "github.com/oracle-terraform-modules/terraform-oci-tdf-network-security"
 
   default_compartment_id = var.default_compartment_id
   vcn_id                 = module.oci_network.vcn.id
@@ -41,7 +41,7 @@ module "oci_nsgs" {
 
 # NSG作成後に通信ポリシーを追加する
 module "standalone_nsg_rules" {
-  source = "https://github.com/oracle-terraform-modules/terraform-oci-tdf-network-security.git"
+  source = "github.com/oracle-terraform-modules/terraform-oci-tdf-network-security"
 
   for_each = {
     nsg_web = {

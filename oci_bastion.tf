@@ -1,5 +1,5 @@
 module "oci_bastions" {
-  source = "https://github.com/yuki9431/terraform-oci-tdf-bastion-service.git"
+  source = "github.com/yuki9431/terraform-oci-tdf-bastion-service"
 
   default_compartment_id = var.default_compartment_id
 

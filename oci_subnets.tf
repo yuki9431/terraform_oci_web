@@ -7,7 +7,7 @@ locals {
 }
 
 module "oci_subnets" {
-  source = "https://github.com/oracle-terraform-modules/terraform-oci-tdf-subnet.git"
+  source = "github.com/oracle-terraform-modules/terraform-oci-tdf-subnet"
 
   default_compartment_id = var.default_compartment_id
   vcn_id                 = module.oci_network.vcn.id
