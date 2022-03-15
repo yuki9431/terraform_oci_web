@@ -36,8 +36,14 @@ Create a terraform.tfvars by referring to [terraform.tfvars_sample](./terraform.
 $ vi terraform.tfvars
 ```
 
-Parameters can be customized by editing *.tf
+OCI Parameters can be customized by editing *.tf.
+Apply at the end
 
+```bash
+$ terraform init
+$ terraform plan
+$ terraform apply
+```
 
 ## Requirement
 ```HCL
