@@ -5,15 +5,15 @@ module "oci_bastions" {
 
   bastions = {
     bastion = {
-      bastion_type = "STANDARD"
-      compartment_id = null
+      bastion_type     = "STANDARD"
+      compartment_id   = null
       target_subnet_id = module.oci_subnets.subnets.subnet_private.id
 
-      client_cidr_block_allow_list = ["0.0.0.0/0"]
-      defined_tags = null
-      freeform_tags = null
+      client_cidr_block_allow_list  = ["0.0.0.0/0"]
+      defined_tags                  = null
+      freeform_tags                 = null
       max_session_ttl_in_seconds    = "10800" # 180 minutes
-      phone_book_entry = null
+      phone_book_entry              = null
       static_jump_host_ip_addresses = null
     }
   }
