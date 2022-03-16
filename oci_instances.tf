@@ -71,7 +71,7 @@ module "oci_instances" {
       vnic_defined_tags   = null
       vnic_display_name   = null
       vnic_freeform_tags  = null
-      nsg_ids             = [module.oci_nsgs.nsgs.nsg_web.id]
+      nsg_ids             = [module.oci_nsgs.nsgs.nsg_managed.id]
       private_ip          = cidrhost(module.oci_subnets.subnets.subnet_private.cidr_block, 20)
       skip_src_dest_check = null
 
