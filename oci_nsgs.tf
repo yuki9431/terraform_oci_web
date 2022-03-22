@@ -8,7 +8,8 @@ locals {
   }
 
   ipaddr = {
-    anywhere = "0.0.0.0/0"
+    anywhere       = "0.0.0.0/0"
+    subnet_private = "192.168.200.0/24"
   }
 
   empty_nsg = {
@@ -34,8 +35,9 @@ module "oci_nsgs" {
   vcn_id                 = module.oci_network.vcn.id
 
   nsgs = {
-    nsg_web = local.empty_nsg
-    nsg_lb  = local.empty_nsg
+    nsg_web     = local.empty_nsg
+    nsg_managed = local.empty_nsg
+    nsg_lb      = local.empty_nsg
   }
 }
 
@@ -59,6 +61,7 @@ module "standalone_nsg_rules" {
       }]
 
       ingress_rules = [{
+
         nsg_id      = module.oci_nsgs.nsgs.nsg_web.id
         description = "LBからHTTP通信を許可する"
         stateless   = false
@@ -72,6 +75,66 @@ module "standalone_nsg_rules" {
         }
         icmp_code = null
         icmp_type = null
+
+        }, {
+
+        nsg_id      = module.oci_nsgs.nsgs.nsg_web.id
+        description = "同サブネットからの通信は全て許可する"
+        stateless   = false
+        protocol    = local.protocols.ALL
+        src         = local.ipaddr.subnet_private
+        src_type    = "CIDR_BLOCK"
+        src_port    = null
+        dst_port    = null
+        icmp_code   = null
+        icmp_type   = null
+
+      }]
+    }
+
+    nsg_managed = {
+      egress_rules = [{
+        nsg_id      = module.oci_nsgs.nsgs.nsg_managed.id
+        description = "Egressは全て許可する。"
+        stateless   = false
+        protocol    = local.protocols.ALL
+        dst         = local.ipaddr.anywhere
+        dst_type    = "CIDR_BLOCK"
+        src_port    = null
+        dst_port    = null
+        icmp_code   = null
+        icmp_type   = null
+      }]
+
+      ingress_rules = [{
+
+        nsg_id      = module.oci_nsgs.nsgs.nsg_managed.id
+        description = "LBからHTTP通信を許可する(Zabbix管理画面)"
+        stateless   = false
+        protocol    = local.protocols.TCP
+        src         = module.oci_nsgs.nsgs.nsg_lb.id
+        src_type    = "NETWORK_SECURITY_GROUP"
+        src_port    = null
+        dst_port = {
+          min = 80
+          max = 80
+        }
+        icmp_code = null
+        icmp_type = null
+
+        }, {
+
+        nsg_id      = module.oci_nsgs.nsgs.nsg_managed.id
+        description = "同サブネットからの通信は全て許可する"
+        stateless   = false
+        protocol    = local.protocols.ALL
+        src         = local.ipaddr.subnet_private
+        src_type    = "CIDR_BLOCK"
+        src_port    = null
+        dst_port    = null
+        icmp_code   = null
+        icmp_type   = null
+
       }]
     }
 
@@ -90,8 +153,9 @@ module "standalone_nsg_rules" {
       }]
 
       ingress_rules = [{
+
         nsg_id      = module.oci_nsgs.nsgs.nsg_lb.id
-        description = "外部らHTTP通信を許可する"
+        description = "外部からHTTP通信を許可する"
         stateless   = false
         protocol    = local.protocols.TCP
         src         = local.ipaddr.anywhere
@@ -103,6 +167,23 @@ module "standalone_nsg_rules" {
         }
         icmp_code = null
         icmp_type = null
+
+        }, {
+
+        nsg_id      = module.oci_nsgs.nsgs.nsg_lb.id
+        description = "外部からHTTPS通信を許可する"
+        stateless   = false
+        protocol    = local.protocols.TCP
+        src         = local.ipaddr.anywhere
+        src_type    = "CIDR_BLOCK"
+        src_port    = null
+        dst_port = {
+          min = 443
+          max = 443
+        }
+        icmp_code = null
+        icmp_type = null
+
       }]
     }
   }
